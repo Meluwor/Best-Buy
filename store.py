@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List
 
 from products import Product
 
@@ -33,6 +33,7 @@ class Store:
                 total += product.buy(amount)
             except ValueError as e:
                 print(f'For Product {product.name} ',e)
+        self.list_of_products = self.get_all_products()
         return total
 
 def order_test():
