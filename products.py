@@ -3,18 +3,14 @@ class Product:
         if not name.strip():
             raise ValueError("You have to enter a product name!")
         self.name = name
-        #I expect that products can be free as well
+        # I expect that products can be free as well
         if price < 0:
             raise ValueError("You have to enter a positive price!")
         self.price = price
         if quantity < 0:
             raise ValueError("You have to enter a positive quantity!")
         self.quantity = quantity
-        if self.quantity == 0:
-            self.active = False
-        else:
-            # quantity cant be negative at this point
-            self.active = True
+        self.active = self.quantity > 0
 
     def get_quantity(self) -> int:
         return self.quantity
@@ -47,35 +43,3 @@ class Product:
 
     def show(self):
         print(f'{self.name}, Price: {self.price}, Quantity: {self.quantity}')
-
-
-def product_test():
-    bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
-    # an 'empty' product could be one later or not who knows
-    mac2: Product | None = None
-    try:
-        mac2 = Product("Mac", price=1450, quantity=-100)
-    except ValueError as e:
-        print(f'Something went wrong: {e}')
-    mac = Product("MacBook Air M2", price=1450, quantity=100)
-    print(mac2)
-    print(bose.buy(50))
-    print(mac.buy(100))
-    print(mac.is_active())
-
-    bose.show()
-    mac.show()
-
-    bose.set_quantity(1000)
-    bose.show()
-    try:
-        mac.buy(10)
-    except ValueError as e:
-        print(e)
-    print("finished")
-
-def main():
-    product_test()
-
-if __name__ == "__main__":
-    main()
